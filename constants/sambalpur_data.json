@@ -1,0 +1,44 @@
+{
+    "coord": {
+        "lon": 83.9667,
+        "lat": 21.45
+    },
+    "weather": [
+        {
+            "id": 804,
+            "main": "Clouds",
+            "description": "overcast clouds",
+            "icon": "04n"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 27.23,
+        "feels_like": 30.48,
+        "temp_min": 27.23,
+        "temp_max": 27.23,
+        "pressure": 1004,
+        "humidity": 82,
+        "sea_level": 1004,
+        "grnd_level": 988
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 0.59,
+        "deg": 188,
+        "gust": 0.59
+    },
+    "clouds": {
+        "all": 92
+    },
+    "dt": 1726754967,
+    "sys": {
+        "country": "IN",
+        "sunrise": 1726704731,
+        "sunset": 1726748625
+    },
+    "timezone": 19800,
+    "id": 1257542,
+    "name": "Sambalpur",
+    "cod": 200
+}

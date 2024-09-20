@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Sabyasachi Sahani">
+    <meta name="description" content="A weather forecasting app in Java Script"></meta>
+    <title>Weather Forecasting</title>
+    <link href="./output.css" rel="stylesheet"> <!--Tailwind Classes Referenc--> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">  <!--Monteserrat Font Family from Google Fonts-->
+</head>
+
+<body class="h-screen flex flex-col items-center justify-center gap-5 bg-sky-700">
+    
+    <div class="welcome-message w-full text-center">
+        <h1 class="text-amber-200 font-bold font-mono text-lg"> Welcome to Weather Forecast App
+    </div>
+    <!--TOP CONTAINER-->
+    <div  id="t-container" class="relative w-96 h-36 bg-white px-7 py-8 flex flex-col items-center overflow-hidden rounded-2xl ease-out duration-700">
+        <h3 class="text-gray-700 font-medium">Get weather data by your location.</h3>
+        <button id="location-button" class="bg-current text-white font-medium hover:bg-sky-700 inline rounded-xl p-2 px-4 m-3">My Location</button>
+        <img id="image-local" src="" class="w-96 h-40 mt-7 object-fill rounded-md">
+        <p id="city-local" class="text-current text-xl font-medium capitalize"></p>
+        <p id="temperature-local" class="relative text-current text-2xl font-extrabold mt-7 -ml-4"></p>
+        <p id="description-local" class="text-current text-xl font-medium capitalize"></p>
+    
+        <div class="weather-details w-full flex flex-row flex-wrap"> <!--4th Div Box-->
+            
+            <div class="flex items-center w-1/2 h-24 pl-5 justify-start">  <!--4th .1-->
+                <i class="fa-solid fa-water text-current text-2xl mr-3 mt-1"></i>
+                <div class="text">
+                    <span id="humidity-local" class="text-current text-xl font-medium "></span> <!--humidity info-->
+                    <p class="text-current text-sm font-medium"> Humidity</p>
+                </div>
+            </div>
+
+            <div class="flex items-center w-1/2 h-24 pr-5 justify-end ">  <!--4th .2-->
+                <i class="fa-solid fa-wind text-current text-2xl mr-3 mt-1"></i>
+                <div class="text">
+                    <span id="wind-local" class="text-current text-xl font-medium "></span> <!--Wind speed info-->
+                    <p class="text-current text-sm font-medium">Wind Speed</p>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+
+    <!--MAIN MIDDLE CONTAINER-->
+    <div id="m-container" class="container relative w-96 h-40 bg-white px-7 py-8 overflow-hidden rounded-2xl ease-out duration-700">
+        <!--SEARCH-BOX CONTAINER-->
+        <div class="search-box w-full h-min flex items-center justify-between"> <!--1st Div Box-->
+            <i class="fa-solid fa-location-dot absolute text-current text-2xl"></i>
+            <input type="text" placeholder="Enter your City/Country" id="" class="text-current uppercase pl-8 w-10/12 text-2xl font-normal">
+            <button class="fa-solid fa-magnifying-glass cursor-pointer size-12 h-12 w-12 text-current rounded-full text-xl ease-linear duration-500 hover:bg-current hover:text-white "></button>  
+        </div>
+        <!--IMAGE CONTAINER IN CASE OF RESPONSE FAILURE-->
+        <div class="not-found w-full text-center mt-12"> <!--2nd Div Box-->
+            <img src="../images/location-not-found.png" class="w-4/5">
+            <p class="text-current text-xl font-medium mt-3">Oops! Invalid Location 😐</p>
+        </div>
+        <!--WEATHER BOX CONTAINER (WEATHER & TEMPERATURE READING)-->
+        <div class="weather-box text-center"> <!--3rd Div Box-->
+            <img src="" class="w-96 h-40 mt-7 object-fill rounded-md"> <!--This displays Image of Rain/Snow/Haze/Clear/Cloudy-->
+            <p class="temperature relative text-current text-6xl font-extrabold mt-7 -ml-4"></p>
+            <p class="description text-current text-xl font-medium capitalize"></p>
+        </div>
+        <!--HUMIDITY AND WIND SPEED CONTAINER-->
+        <div class="weather-details w-full flex flex-row flex-wrap"> <!--4th Div Box-->
+            
+            <div class="humidity flex items-center w-1/2 h-24 pl-5 justify-start">  <!--4th .1-->
+                <i class="fa-solid fa-water text-current text-2xl mr-3 mt-1"></i>
+                <div class="text">
+                    <span class="text-current text-xl font-medium "></span> <!--humidity info-->
+                    <p class="text-current text-sm font-medium"> Humidity</p>
+                </div>
+            </div>
+
+            <div class="wind flex items-center w-1/2 h-24 pr-5 justify-end ">  <!--4th .2-->
+                <i class="fa-solid fa-wind text-current text-2xl mr-3 mt-1"></i>
+                <div class="text">
+                    <span class="text-current text-xl font-medium "></span> <!--Wind speed info-->
+                    <p class="text-current text-sm font-medium">Wind Speed</p>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+    <!--BOTTOM CONTAINER-->
+    <div id="b-container" class="relative w-96 h-40 bg-white px-7 py-8 text-center overflow-hidden rounded-2xl ease-out duration-700">
+        
+        <span>* Data may differ slightly based on parameters used - Coordinates/City Name</span>
+    </div>
+
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <script src="https://kit.fontawesome.com/c21216cc75.js" crossorigin="anonymous"></script> <!--Font Awesome reference-->
+    <script src="index.js"></script>
+</body>
+</html>
