@@ -29,7 +29,9 @@ search.addEventListener('click',()=>{
             container.style.height  = '445px'; // Data Failure image reappears with increased height of container
             weatherBox.style.display = '';   // Hides the Temperature and Description section
             weatherDetails.style.display = ''; // Hides the Humidity and Wind Speed indicators
-            error404.style.display = 'block'; // The Error Image and Message emerges
+            bottomContainer.style.display = 'none';
+            error404.style.display = 'flex'; // The Error Image and Message emerges
+            error404.style.marginTop = '3px'; 
             error404.classList.add('fadeIn');
             return;
         }

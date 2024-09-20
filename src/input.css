@@ -53,3 +53,11 @@
 .shrink{
     height: 10vh;
 }
+
+#left-display{
+    height: 500px;
+}
+
+#right-display{
+    height: 500px;
+}
