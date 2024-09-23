@@ -7,21 +7,25 @@ const error404 = document.querySelector(".not-found");
 const getLocation = document.getElementById("location-button");
 const topContainer = document.getElementById('t-container');
 const bottomContainer = document.getElementById('b-container');
+const forecastButton = document.getElementById('forecast-button');
 
+let lon,lat,pressure,visibility,sunrise,sunset,City;
 
-// (position => {
-//     position.coords.longitude });
-// console.log(currentLocation);
+let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+currentWeatherCard = document.querySelectorAll('.weather-left .card')[0];
 
 search.addEventListener('click',()=>{
 
     const APIKey ='a51436fe16293393a10f617c7eaf0bca';
     const city = document.querySelector('.search-box input').value;
+    City = city;
 
     if(city === '')
         return;
     
-    const data = fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIKey}`)
+    const data = fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIKey}`)
     .then(response => response.json()) // Each JSON data attributes to a particular City
     .then( json => {
         //---------------------------- RESPONSE ERROR --------------------------- 
@@ -48,7 +52,13 @@ search.addEventListener('click',()=>{
             const humidity = document.querySelector('.weather-details .humidity span');
             const wind = document.querySelector('.weather-details .wind span');
 
-
+            lon = json.coord.lon;
+            lat = json.coord.lat;
+            pressure = json.main.pressure;
+            visibility = json.visibility;
+            sunrise = json.sys.sunrise;
+            sunset = json.sys.sunset; 
+            
             switch(json.weather[0].main){ // Scans the JSON data of a particular City
                 case 'Clear':
                     image.src = '../images/clear_sun.png';
@@ -77,8 +87,8 @@ search.addEventListener('click',()=>{
             humidity.innerHTML = `${json.main.humidity}%`; // Injects the Humidity reading
             wind.innerHTML = `${json.wind.speed} Km/h`;
 
-            console.log(json.main.temp,json.weather[0].description,json.main.humidity,json.wind.speed); // To verify data reception
-            console.log(json);
+            // console.log(json.main.temp,json.weather[0].description,json.main.humidity,json.wind.speed); // To verify data reception
+            // console.log(json);
             
             weatherBox.style.display = '';
             weatherDetails.style.display = '';
@@ -88,6 +98,10 @@ search.addEventListener('click',()=>{
             weatherDetails.classList.add('fadeIn');
 
             container.style.height = '590px'; // Readjusting container's height
+
+            // Forecast in Left Section
+
+            displayForecast(json, lat, lon);
     })
 });
 
@@ -107,7 +121,7 @@ function gotLocation(position){
         if(json.cod === '404') // HTTP Status code 404 - Resource not found
             console.log('Failed to track location');   
             
-            console.log(json);
+            // console.log(json);
             
             topContainer.style.height = '550px';
             bottomContainer.style.display = 'none';
@@ -151,4 +165,34 @@ function gotLocation(position){
 
 function failedLocation(){
     alert("Access denied. Failed to trace location");
+}
+
+function displayForecast(data, lat, lon){
+    const APIKey ='a51436fe16293393a10f617c7eaf0bca';
+    console.log(lat, lon);
+    let date = new Date();
+
+    let forecast_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKey}`;
+
+    currentWeatherCard.innerHTML = `<div class="current-weather flex justify-between items-center border-2 border-solid border-sky-200 ">
+                        <div class="details">
+                            <p class=" text-white text-sm">Now</p>
+                            <h2 class="text-white text-3xl mx-2">${data.main.temp.toFixed(2)}&deg;C</h2>
+                            <p class="text-gray-400 text-sm mx-2">${data.weather[0].description}</p>
+                        </div>
+                        <div class="weather-icon">
+                            <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}" alt="">
+                        </div>
+                    </div>
+                    <hr class="my-1 border-t-2 ">
+                    <div class="card-footer text-sm border-2 border-solid border-red-500">
+                        <p class="text-gray-100 mb-3"><i class="fa-regular fa-calendar text-white text-lg"></i>${days[date.getDay()]}, ${date.getDate()}, ${months[date.getMonth()]} </p>
+                        <p class="text-gray-100 mb-3"><i class="fa-solid fa-location-dot text-white text-lg"></i>${data.name}, ${data.sys.country}</p>
+                    </div>`;
+
+    fetch(forecast_URL).then(res => res.json()).then(dataII => {
+        console.log(dataII);
+    }).catch(()=>{
+        alert("Failed to fetch forecast data.");
+    });
 }

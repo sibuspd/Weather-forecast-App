@@ -12,11 +12,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">  <!--Monteserrat Font Family from Google Fonts-->
 </head>
 
-<body class="flex gap-5 items-center pl-5 pr-5 bg-sky-700">
-    
-    <div id="forecast-display" class="w-1/3 bg-gradient-to-r from-black via-gray-500 to-gray-900 shadow-lg transform hover:scale-90 hover:translate-y-1 transition duration-300 rounded-2xl h-5/6 flex flex-col gap-0 items-center"> <!--Left Forecast Box-->
+<body class="flex gap-5 items-center pl-5 pr-5 bg-black">
+    <!--LEFT SIDE FORECAST PANEL-->
+    <div id="forecast-display" class="w-1/3 bg-gradient-to-r from-black via-gray-500 to-gray-900 shadow-lg rounded-2xl h-5/6 flex flex-col gap-0 items-center"> <!--Left Forecast Box-->
         <div>
-            <button id="forecast-button" class="bg-current text-white font-medium hover:bg-sky-700 inline rounded-xl p-2 px-4 m-3">Get Forecast</button>
+            <button id="forecast-button" class="bg-current text-white font-medium hover:bg-sky-700 inline rounded-xl p-2 px-4 m-3 transform hover:scale-105 hover:translate-y-1 transition duration-300">Get Forecast</button>
         </div>  
         <div class="weather-data grid grid-cols-4 gap-0 border-2 border-solid border-green-300">
             <div class="weather-left col-span-4">
@@ -33,8 +33,8 @@
                     </div>
                     <hr class="my-1 border-t-2 ">
                     <div class="card-footer text-sm border-2 border-solid border-red-500">
-                        <p class="text-gray-500 mb-3"><i class="fa-regular fa-calendar text-white text-lg"></i>______</p>
-                        <p class="text-gray-500 mb-3"><i class="fa-solid fa-location-dot text-white text-lg"></i>______</p>
+                        <p class="text-gray-100 mb-3"><i class="fa-regular fa-calendar text-white text-lg"></i>______</p>
+                        <p class="text-gray-100 mb-3"><i class="fa-solid fa-location-dot text-white text-lg"></i>______</p>
                     </div>
                 </div>
                 
@@ -103,7 +103,7 @@
         <div  id="t-container" class="relative w-96 h-36 bg-white px-7 py-8 flex flex-col items-center overflow-hidden rounded-2xl ease-out duration-700 shadow-lg transform hover:scale-105 hover:translate-y-1 transition">
             <h3 class="text-gray-700 font-medium">Get weather data by your location.</h3>
             <button id="location-button" class="bg-current text-white font-medium hover:bg-sky-700 inline rounded-xl p-2 px-4 m-3">My Location</button>
-            <img id="image-local" src="" class="w-96 h-40 mt-7 object-fill rounded-md">
+            <img id="image-local" src="" class="w-72 h-40 mt-7 object-fill rounded-md">
             <p id="city-local" class="text-current text-xl font-medium capitalize"></p>
             <p id="temperature-local" class="relative text-current text-2xl font-extrabold mt-7 -ml-4"></p>
             <p id="description-local" class="text-current text-xl font-medium capitalize"></p>
@@ -138,13 +138,13 @@
                 <button class="fa-solid fa-magnifying-glass cursor-pointer size-12 h-12 w-12 text-current rounded-full text-xl ease-linear duration-500 hover:bg-current hover:text-white "></button>  
             </div>
             <!--IMAGE CONTAINER IN CASE OF RESPONSE FAILURE-->
-            <div class="not-found w-full text-center mt-10 flex flex-col items-center"> <!--2nd Div Box-->
+            <div class="not-found w-full text-center mt-14 flex flex-col items-center"> <!--2nd Div Box-->
                 <img src="../images/location-not-found.png" class="w-4/5">
                 <p class="text-current text-xl font-medium mt-3">Oops! Invalid Location 😐</p>
             </div>
             <!--WEATHER BOX CONTAINER (WEATHER & TEMPERATURE READING)-->
-            <div class="weather-box text-center"> <!--3rd Div Box-->
-                <img src="" class="w-96 h-40 mt-7 object-fill rounded-md"> <!--This displays Image of Rain/Snow/Haze/Clear/Cloudy-->
+            <div class="weather-box text-center flex flex-col items-center"> <!--3rd Div Box-->
+                <img src="" class="w-72 h-40 mt-7 object-fill rounded-md"> <!--This displays Image of Rain/Snow/Haze/Clear/Cloudy-->
                 <p class="temperature relative text-current text-6xl font-extrabold mt-7 -ml-4"></p>
                 <p class="description text-current text-xl font-medium capitalize"></p>
             </div>
@@ -175,9 +175,98 @@
             <span>* Data may differ slightly based on parameters used - Coordinates/City Name</span>
         </div>
     </div>
-
-    <div id="right-display" class="w-1/3 bg-gradient-to-r from-black via-gray-500 to-gray-900 h-5/6 transform hover:scale-90 hover:translate-y-1 transition duration-300 rounded-2xl">right bro</div> <!--Right Big Box-->
-
+    <!--OTHER HIGHLIGHTS HIGHLIGHT PANEL-->
+    <div id="right-display" class="w-1/3 bg-gradient-to-r from-black via-gray-500 to-gray-900 h-5/6 rounded-2xl">
+        <h2 class="text-white text-xl mb-3 py-2 pt-5 text-center font-medium">Air Quality Index</h2>
+        <div class="highlight mt-5 grid grid-cols-2 gap-3 place-items-center transform hover:scale-105 hover:translate-y-1 transition duration-300">
+            <!--1st Card-->
+            <div class="card col-span-3">
+                <div class="card-head flex gap-28 justify-between mb-3 p-3 rounded-xl bg-gray-800 bg-opacity-20">
+                    <p class="text-white">Score</p>
+                    <p class="air-index bg-yellow-300 text-black text-sm font-semibold rounded-2xl px-1 py-1">Good</p>
+                </div> 
+                <div class="stats grid grid-cols-2 place-items-center">                    
+                    <div class="item">
+                        <p class="text-white text-center">PM2.5</p>
+                        <h2 class="text-gray-200">_____</h2>
+                    </div>
+                    <div class="item">
+                        <p class="text-white text-center">PM10</p>
+                        <h2 class="text-gray-200">_____</h2>
+                    </div>
+                    <div class="item">
+                        <p class="text-white text-center">S02</p>
+                        <h2 class="text-gray-200">_____</h2>
+                    </div>
+                    <div class="item">
+                        <p class="text-white text-center">CO</p>
+                        <h2 class="text-gray-200">_____</h2>
+                    </div>
+                    <div class="item">
+                        <p class="text-white text-center">NO</p>
+                        <h2 class="text-gray-200">_____</h2>
+                    </div>
+                    <div class="item">
+                        <p class="text-white text-center">NO2</p>
+                        <h2 class="text-gray-200">_____</h2>
+                    </div>
+                    <div class="item">
+                        <p class="text-white text-center">NH3</p>
+                        <h2 class="text-gray-200">_____</h2>
+                    </div>
+                    <div class="item">
+                        <p class="text-white text-center">O3</p>
+                        <h2 class="text-gray-200">_____</h2>
+                    </div>    
+                </div>
+                <div class="card">
+                    <div class="card-head">
+                        <p class="text-white text-xl mb-3 py-2 pt-5 text-center font-medium">Sunrise & Sunset</p>
+                    </div>
+                    <div class="sunrise-sunset grid grid-cols-2 place-items-center">
+                        <div class="item flex items-center gap-3">
+                            <div class="icon">
+                                <i class="fa-solid fa-sun fa-2x text-yellow-300"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-200">Sunrise</p>
+                                <h2 class="mt-4">______</h2>
+                            </div>    
+                        </div>
+                        <div class="item flex items-center gap-3">
+                            <div class="icon">
+                                <i class="fa-solid fa-star fa-2x text-violet-300"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-200">Sunset</p>
+                                <h2 class="mt-4">______</h2>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+                <div class="card flex items-center gap-6 mt-3">
+                    <div class="card-head">
+                        <p class="text-gray-200">Pressure</p>
+                    </div>
+                    <div class="card-item flex justify-between gap-4 items-center">
+                        <i class="fa-solid fa-compass fa-2x text-amber-200 bg-red-800 rounded-full "></i>
+                        <h2 id="pressureVal" class="text-white">____hPa</h2> 
+                    </div>
+                </div>
+                <div class="card flex items-center gap-6 mt-3">
+                    <div class="card-head">
+                        <p class="text-gray-200">Visibility</p>
+                    </div>
+                    <div class="card-item flex justify-between gap-4 items-center">
+                        <i class="fa-solid fa-eye fa-2x text-cyan-300"></i>
+                        <h2 id="visibilityVal" class="text-white">____Km</h2> 
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div> <!--Right Big Box-->
+    
 
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <script src="https://kit.fontawesome.com/c21216cc75.js" crossorigin="anonymous"></script> <!--Font Awesome reference-->
