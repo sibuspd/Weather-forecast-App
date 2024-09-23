@@ -16,12 +16,12 @@
     <!--LEFT SIDE FORECAST PANEL-->
     <div id="forecast-display" class="w-1/3 bg-gradient-to-r from-black via-gray-500 to-gray-900 shadow-lg rounded-2xl h-5/6 flex flex-col gap-0 items-center"> <!--Left Forecast Box-->
         <div>
-            <button id="forecast-button" class="bg-current text-white font-medium hover:bg-sky-700 inline rounded-xl p-2 px-4 m-3 transform hover:scale-105 hover:translate-y-1 transition duration-300">Get Forecast</button>
+            <button id="cities-button" class="bg-current text-white font-medium hover:bg-sky-700 inline rounded-xl p-2 px-4 m-3 transform hover:scale-105 hover:translate-y-1 transition duration-300">Recent Cities</button>
         </div>  
-        <div class="weather-data grid grid-cols-4 gap-0 border-2 border-solid border-green-300">
+        <div class="weather-data grid grid-cols-4 gap-0">
             <div class="weather-left col-span-4">
-                <div class="card p-3 rounded-xl mb-0 border-2 border-solid border-yellow-500">
-                    <div class="current-weather flex justify-between items-center border-2 border-solid border-sky-200 ">
+                <div class="card p-3 rounded-xl mb-0">
+                    <div class="current-weather flex justify-between items-center">
                         <div class="details">
                             <p class=" text-white text-sm">Now</p>
                             <h2 class="text-white text-3xl mx-2">_____&deg;C</h2>
@@ -32,13 +32,13 @@
                         </div>
                     </div>
                     <hr class="my-1 border-t-2 ">
-                    <div class="card-footer text-sm border-2 border-solid border-red-500">
+                    <div class="card-footer text-sm">
                         <p class="text-gray-100 mb-3"><i class="fa-regular fa-calendar text-white text-lg"></i>______</p>
                         <p class="text-gray-100 mb-3"><i class="fa-solid fa-location-dot text-white text-lg"></i>______</p>
                     </div>
                 </div>
                 
-                <div class="card flex flex-col items-center border-2 border-solid border-red-500">
+                <div class="card flex flex-col items-center">
                     <h2 class="text-white text-lg font-semibold mb-2">5 Days Forecast</h2>
                     <!--DAY 1 FORECAST-->
                     <div class="day-forecast">

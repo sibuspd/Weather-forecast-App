@@ -15,6 +15,7 @@ let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturda
 let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 currentWeatherCard = document.querySelectorAll('.weather-left .card')[0];
+const forecastCard = document.querySelector('.day-forecast');
 
 search.addEventListener('click',()=>{
 
@@ -160,6 +161,8 @@ function gotLocation(position){
                 default:
                     localImage.src = '';
             }
+
+        displayForecast(json, lat, lon);
     });    
 }
 
@@ -174,7 +177,7 @@ function displayForecast(data, lat, lon){
 
     let forecast_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKey}`;
 
-    currentWeatherCard.innerHTML = `<div class="current-weather flex justify-between items-center border-2 border-solid border-sky-200 ">
+    currentWeatherCard.innerHTML = `<div class="current-weather flex justify-between items-center">
                         <div class="details">
                             <p class=" text-white text-sm">Now</p>
                             <h2 class="text-white text-3xl mx-2">${data.main.temp.toFixed(2)}&deg;C</h2>
@@ -185,13 +188,33 @@ function displayForecast(data, lat, lon){
                         </div>
                     </div>
                     <hr class="my-1 border-t-2 ">
-                    <div class="card-footer text-sm border-2 border-solid border-red-500">
+                    <div class="card-footer text-sm">
                         <p class="text-gray-100 mb-3"><i class="fa-regular fa-calendar text-white text-lg"></i>${days[date.getDay()]}, ${date.getDate()}, ${months[date.getMonth()]} </p>
                         <p class="text-gray-100 mb-3"><i class="fa-solid fa-location-dot text-white text-lg"></i>${data.name}, ${data.sys.country}</p>
                     </div>`;
 
     fetch(forecast_URL).then(res => res.json()).then(dataII => {
-        console.log(dataII);
+        // console.log(dataII);
+        let uniqueDays = [];
+        let fiveDays = dataII.list.filter(forecast => {
+            let forecastDate = new Date(forecast.dt_txt).getDate();
+            if(!uniqueDays.includes(forecastDate))
+                return uniqueDays.push(forecastDate); // Total 6 days pushed into array
+        });
+        
+        forecastCard.innerHTML = ``;
+        for(i=0;i<fiveDays.length;i++){
+            let date = new Date(fiveDays[i].dt_txt);
+            forecastCard.innerHTML += 
+            `<div class="forecast-item grid grid-cols-3 gap-3 place-items-center mb-1">
+                            <div class="icon-wrapper flex">
+                                <img src="https://openweathermap.org/img/wn/${fiveDays[i].weather[0].icon}.png" alt="">
+                                <span class="text-white">${(fiveDays[i].main.temp - 273.15).toFixed(2)}&deg;C</span>
+                            </div>
+                            <p class="text-gray-200">${date.getDate()} ${months[date.getMonth()]}</p>
+                            <p class="text-gray-200">${days[date.getDay()]}</p>
+        </div>`;
+        }
     }).catch(()=>{
         alert("Failed to fetch forecast data.");
     });
