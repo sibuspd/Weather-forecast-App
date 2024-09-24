@@ -76,3 +76,7 @@
 .aqi-5{
     background-color: var(--aqi-5);
 }
+
+.recent-cities{
+    display: none;
+}

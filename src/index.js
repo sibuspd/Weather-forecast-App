@@ -23,11 +23,14 @@ let aqiCard = document.querySelectorAll('.highlight .card')[0];
 let dayCard = document.querySelectorAll('.highlight .card')[1];
     // console.log(dayCard);
 
+document.addEventListener('DOMContentLoaded',()=> {
+    
+populateDropDown()});  // For initial loading of Recent Search History if exists.
+
 search.addEventListener('click',()=>{
 
     const city = document.querySelector('.search-box input').value;
-    City = city;
-
+    City = city.toLowerCase(); // To ensure later on that cities with same name but different case are not registered
 
     if(city === ''){
         alert("Please enter a city name.")
@@ -109,6 +112,7 @@ search.addEventListener('click',()=>{
             displayForecast(json, lat, lon,temp);
             displayAQ(lat, lon);            
             getAmbienceData(city);
+            addCity(City);
     
     })
 });
@@ -173,6 +177,7 @@ function gotLocation(position){
         displayForecast(json, lat, lon,temp);
         displayAQ(lat, lon);
         getAmbienceData(json.name);
+
     });    
 }
 
@@ -339,3 +344,115 @@ function getAmbienceData(city){
 
     })
 }
+
+function addCity(city){ 
+    let cityList = JSON.parse(localStorage.getItem('Recent_Cities')) || [];
+
+    if(!cityList.includes(city)){
+        cityList.push(city);
+        localStorage.setItem('Recent_Cities', JSON.stringify(cityList));
+    }
+}
+
+function populateDropDown(){
+    let cityList = JSON.parse(localStorage.getItem('Recent_Cities')) || [];
+
+    const dropDown = document.getElementById('dropdown');
+    dropDown.innerHTML = ''; // Empties the previously populated <select> node for preventing duplicate entries.
+    
+    if(cityList.length>0){
+        // dropDown.style.display = 'block';
+        cityList.forEach(city => {
+            let option = document.createElement('option');
+            option.innerHTML = city;
+            dropDown.append(option); 
+        })
+    }
+    else dropDown.style.display = 'none';
+}
+
+//---------------- Loading the data of recent city selected from dropdown menu--------------
+let choice = document.getElementById('dropdown');
+// console.log(choice);
+choice.addEventListener('change',(event)=>{
+    // console.log("option changed") // When the option under a select element is changed, event gets triggered.
+    const selectedOption = event.target.value;
+    // console.log(selectedOption);
+
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${selectedOption}&units=metric&appid=${APIKey}`)
+    .then(res => res.json())
+    .then(json => {
+        error404.style.display = 'none';  // Hides the error image if ${city} is valid
+        error404.classList.remove('fadeIn'); // Removes the className attached and thus, the animation defined.
+
+        topContainer.style.display = 'none';
+        bottomContainer.style.display = 'none'; 
+
+        const image = document.querySelector('.weather-box img') // Targets the image under weather box
+        const temperature = document.querySelector('.weather-box .temperature');
+        const description = document.querySelector('.weather-box .description');
+        const humidity = document.querySelector('.weather-details .humidity span');
+        const wind = document.querySelector('.weather-details .wind span');
+
+        lon = json.coord.lon;
+        lat = json.coord.lat;
+            
+            switch(json.weather[0].main){ // Scans the JSON data of a particular City
+                case 'Clear':
+                    image.src = '../images/clear_sun.png';
+                    break;
+                case 'Rain':
+                    image.src = '../images/rain.png';
+                    break;
+                case 'Snow':
+                    image.src = '../images/snow.png';
+                    break;                
+                case 'Clouds':
+                    image.src = '../images/clouds.png';
+                    break;
+                case 'Haze':
+                    image.src = '../images/haze.png';
+                    break;
+                case 'Mist':
+                    image.src = '../images/mist.png';
+                    break;
+                default:
+                    image.src = '';
+            }
+
+            temperature.innerHTML = `${json.main.temp}<span>°C</span>`; // Injects the temperature reading 
+            description.innerHTML = `${json.weather[0].description}`;
+            humidity.innerHTML = `${json.main.humidity}%`; // Injects the Humidity reading
+            wind.innerHTML = `${json.wind.speed} Km/h`;
+
+                    // console.log(json.main.temp,json.weather[0].description,json.main.humidity,json.wind.speed); // To verify data reception
+            // console.log(json);
+            
+            weatherBox.style.display = '';
+            weatherDetails.style.display = '';
+
+            // Attributing animation to the display modules - weatherBox and weatherDetails
+            weatherBox.classList.add('fadeIn'); 
+            weatherDetails.classList.add('fadeIn');
+
+            container.style.height = '590px'; // Readjusting container's height
+
+            // Forecast in Left Section
+            let temp = json.main.temp;
+            displayForecast(json, lat, lon,temp);
+            displayAQ(lat, lon);            
+            getAmbienceData(selectedOption);
+    });
+});
+
+cityButton.addEventListener('click',()=>{
+    const dropDown = document.getElementById('dropdown');
+    let cityList = JSON.parse(localStorage.getItem('Recent_Cities')) || [];
+    if(cityList.length > 0){
+        if(dropDown.style.display !== 'none'|| dropDown.style.display !== ''){
+            populateDropDown();
+            dropDown.style.display = 'block';       
+    }
+     else dropDown.displaystyle = 'none';
+    } else alert("No recent cities found");
+    });
