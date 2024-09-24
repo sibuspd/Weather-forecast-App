@@ -45,21 +45,34 @@
     }
 }
 
-/*EXPANSION AND SHRINKAGE**/
-.expand{
-    height: 80vh;
-}
-
-.shrink{
-    height: 10vh;
-}
-
 /* #left-display{
-    height: 97vh;
-}
-
-#right-display{
     height: 97vh;
 } */
 
+#right-display{
+    height: 99vh;
+}
 
+:root{
+    --aqi-1: #d4e157;
+    --aqi-2: #ffee58;
+    --aqi-3: #ffca28;
+    --aqi-4: #ff7043;
+    --aqi-5: #ef5350;
+}
+
+.aqi-1{
+    background-color: var(--aqi-1);
+}
+.aqi-2{
+    background-color: var(--aqi-2);
+}
+.aqi-3{
+    background-color: var(--aqi-3);
+}
+.aqi-4{
+    background-color: var(--aqi-4);
+}
+.aqi-5{
+    background-color: var(--aqi-5);
+}

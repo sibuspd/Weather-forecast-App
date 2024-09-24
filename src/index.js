@@ -21,15 +21,18 @@ const forecastCard = document.querySelector('.day-forecast');
 let aqiCard = document.querySelectorAll('.highlight .card')[0];
 // console.log(aqiCard);
 let dayCard = document.querySelectorAll('.highlight .card')[1];
-    console.log(dayCard);
+    // console.log(dayCard);
 
 search.addEventListener('click',()=>{
 
     const city = document.querySelector('.search-box input').value;
     City = city;
 
-    if(city === '')
+
+    if(city === ''){
+        alert("Please enter a city name.")
         return;
+    } 
     
     const data = fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIKey}`)
     .then(response => response.json()) // Each JSON data attributes to a particular City
@@ -244,7 +247,7 @@ function displayAQ(lat, lon){
         aqiCard.innerHTML = `
         <div class="card-head flex gap-28 justify-between mb-3 p-3 rounded-xl bg-gray-800 bg-opacity-20">
                     <p class="text-white">Score</p>
-                    <p class="air-index aqi-${dataIII.list[0].main.aqi} bg-yellow-300 text-black text-sm font-semibold rounded-2xl px-1 py-1">${aqiScore[dataIII.list[0].main.aqi - 1]}</p> 
+                    <p class="air-index aqi-${dataIII.list[0].main.aqi} text-black text-sm font-semibold rounded-2xl px-1 py-1">${aqiScore[dataIII.list[0].main.aqi - 1]}</p> 
                 </div> 
                 <div class="stats grid grid-cols-2 place-items-center">                    
                     <div class="item text-center">
@@ -299,31 +302,40 @@ function getAmbienceData(city){
         let sRiseTime = moment.utc(sunrise, 'X').add(timezone, 'seconds').format('hh: mm A'),
         sSetTime = moment.utc(sunset, 'X').add(timezone, 'seconds').format('hh: mm A');
 
-        console.log("Sunrise Sunset CB called");
-
         dayCard.innerHTML = `
         <div class="card-head">
-            <p class="text-white text-xl mb-3 py-2 pt-5 text-center font-medium">Sunrise & Sunset</p>
-        </div>
-        <div class="sunrise-sunset grid grid-cols-2 place-items-center">
-            <div class="item flex items-center gap-3">
-            <div class="icon">
-                <i class="fa-solid fa-sun fa-2x text-yellow-300"></i>
-            </div>
-            <div>
-                <p class="text-gray-200">Sunrise</p>
-                <h2 class="mt-4 text-white">${sRiseTime}</h2>
-            </div>    
-        </div>
-        <div class="item flex items-center gap-3">
-            <div class="icon">
-                <i class="fa-solid fa-star fa-2x text-violet-300"></i>
-            </div>
-            <div>
-                <p class="text-gray-200">Sunset</p>
-                <h2 class="mt-4 text-white">${sSetTime}</h2>
-            </div>    
-        </div>
-        </div>`;
+                    <p class="text-white text-xl mb-3 text-center font-medium">Sunrise & Sunset</p>
+                </div>
+
+                <!--Sun/Daylight Status-->
+                <div class="sunrise-sunset grid grid-cols-2 place-items-center">
+                    <div class="item flex items-center gap-3">
+                        <div class="icon">
+                            <i class="fa-solid fa-sun fa-2x text-yellow-300"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-200">Sunrise</p>
+                            <h2 class="text-yellow-100 mt-4 font-bold">${sRiseTime}</h2>
+                        </div>    
+                    </div>
+
+                    <div class="item flex items-center gap-3">
+                        <div class="icon">
+                            <i class="fa-solid fa-star fa-2x text-violet-300"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-200">Sunset</p>
+                            <h2 class="text-purple-300 mt-4 font-bold">${sSetTime}</h2>
+                        </div>    
+                    </div>
+                </div>`;
+        console.log("Sunrise Sunset CB called");
+
+        let pressureVal = document.getElementById('pressureVal');
+        let visibilityVal = document.getElementById('visibilityVal');
+
+        pressureVal.innerHTML = `${pressure} hPa`;
+        visibilityVal.innerHTML = `${visibility/1000} Km`;  
+
     })
 }
