@@ -221,7 +221,7 @@ function displayForecast(data, lat, lon,temp){
         for(i=0;i<fiveDays.length;i++){
             let date = new Date(fiveDays[i].dt_txt);
             forecastCard.innerHTML += 
-            `<div class="forecast-item grid grid-cols-3 gap-3 place-items-center mb-1">
+            `<div class="forecast-item grid grid-cols-3 gap-3 place-items-center mb-0 md:flex md:flex-col lg:flex-row lg:w-80 lg:mb-0">
                             <div class="icon-wrapper flex">
                                 <img src="https://openweathermap.org/img/wn/${fiveDays[i].weather[0].icon}.png" alt="">
                                 <span class="text-white">${(fiveDays[i].main.temp - 273.15).toFixed(2)}&deg;C</span>
